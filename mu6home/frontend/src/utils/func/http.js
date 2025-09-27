@@ -1,5 +1,15 @@
 const API_BASE = "/api"; // adjust to match your backend
 
+function formatUrl(template, args) {
+  if (!args) return template;
+  if (!Array.isArray(args)) args = [args]; // normalize single value into array
+
+  return template.replace(/{(\d+)}/g, (match, index) => {
+    const value = args[index];
+    return value !== undefined ? encodeURIComponent(value) : match;
+  });
+}
+
 async function request(method, url, data) {
   const opts = { method, headers: {} };
 
@@ -23,7 +33,7 @@ async function request(method, url, data) {
 }
 
 export const http = {
-  get: (url) => request("GET", url),
+  get: (urlTemplate, ...args) => request("GET", formatUrl(urlTemplate, args)),
   post: (url, data) => request("POST", url, data),
   put: (url, data) => request("PUT", url, data),
   delete: (url) => request("DELETE", url),

@@ -1,19 +1,26 @@
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import { roomService } from "../api";
-import { getQueryParams } from "../utils/func/urlFunc";
-
+import { useParams } from "react-router-dom";
+import { roomService } from "../api/roomService";
+import { useAppDispatch } from "../store";
+import { showMessage } from "../store/messageSlice";
 const Room = () => {
-  const location = useLocation();
-  const queryString = getQueryParams(location.search);
-  console.log(queryString);
+  const { roomCode } = useParams();
+  const dispatch = useAppDispatch();
+  console.log(roomCode);
   useEffect(() => {
-    roomService.getRoomDetail(queryString.roomCode).then((data) => {
-      console.log(data);
-    });
-  }, [queryString.roomCode]);
+    if (roomCode) {
+      roomService
+        .getRoomDetail(roomCode)
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          dispatch(showMessage({ message: err?.message, type: "error" }));
+        });
+    }
+  }, [roomCode]);
   return (
     <Container fixed>
       <Box sx={{ bgcolor: "#cfe8fc", height: "100vh" }} />
