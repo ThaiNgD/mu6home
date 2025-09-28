@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Mu6home</title>
+    <meta name="description" content="Mu6home App" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {% load static %}
+
+    <!-- jQuery (optional, only keep if you really need it) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
+
+    <!-- Your CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/index.css' %}"
+    />
+  </head>
+  <body>
+    <!-- React root element -->
+    <div id="app"></div>
+
+    <!-- Compiled React bundle -->
+    <script src="{% static 'frontend/main.js' %}"></script>
+  </body>
+</html>
